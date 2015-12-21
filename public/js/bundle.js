@@ -70,6 +70,7 @@ var AttendanceList = (function (_React$Component) {
 		};
 		_this.setMemberInfo = _this.setMemberInfo.bind(_this);
 		_this.componentDidMount = _this.componentDidMount.bind(_this);
+		_this.renderMemberList = _this.renderMemberList.bind(_this);
 		return _this;
 	}
 
@@ -97,7 +98,7 @@ var AttendanceList = (function (_React$Component) {
 						'Paid leave off'
 					),
 					_react2.default.createElement('hr', { className: 'fancy-line' }),
-					this.renderMember(this.state.absents.items, 'paid'),
+					this.renderMemberList(this.state.absents.items, 'paid'),
 					_react2.default.createElement(
 						'div',
 						{ className: 'btn' },
@@ -117,7 +118,33 @@ var AttendanceList = (function (_React$Component) {
 						'Late'
 					),
 					_react2.default.createElement('hr', { className: 'fancy-line' }),
-					this.renderMember(this.state.absents.items, 'late'),
+					this.renderMemberList(this.state.absents.items, 'late'),
+					_react2.default.createElement(
+						'div',
+						{ className: 'balloon' },
+						'Half-Day off'
+					),
+					this.renderMemberList(this.state.absents.items, 'half'),
+					_react2.default.createElement(
+						'div',
+						{ className: 'btn' },
+						_react2.default.createElement(
+							'a',
+							{ href: '#' },
+							'+ ADD INFORMATION'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'grid' },
+					_react2.default.createElement(
+						'p',
+						{ className: 'title' },
+						'Business Event'
+					),
+					_react2.default.createElement('hr', { className: 'fancy-line' }),
+					this.renderMemberList(this.state.absents.items, 'business', true),
 					_react2.default.createElement(
 						'div',
 						{ className: 'btn' },
@@ -131,27 +158,58 @@ var AttendanceList = (function (_React$Component) {
 			);
 		}
 	}, {
-		key: 'renderMember',
-		value: function renderMember(items, statId) {
+		key: 'renderMemberList',
+		value: function renderMemberList(items, statId, isCommentRequired) {
+			var _this2 = this;
+
 			return items.map(function (item) {
 				if (item.stat.id == statId) {
 					return _react2.default.createElement(
-						'section',
-						{ className: 'item', key: item._id },
-						_react2.default.createElement('img', { className: 'thumbnail', src: item.member.icon, alt: 'thumbnail' }),
-						_react2.default.createElement(
+						'div',
+						null,
+						isCommentRequired ? _react2.default.createElement(
 							'div',
-							{ className: 'name' },
-							item.member.name
-						),
+							null,
+							_this2.renderComment(item)
+						) : "",
 						_react2.default.createElement(
-							'p',
-							{ className: 'department' },
-							item.member.group.href
+							'section',
+							{ className: 'item', key: item._id },
+							_react2.default.createElement('img', { className: 'thumbnail', src: item.member.icon, alt: 'thumbnail' }),
+							_react2.default.createElement(
+								'div',
+								{ className: 'name' },
+								item.member.name
+							),
+							_react2.default.createElement(
+								'p',
+								{ className: 'department' },
+								item.member.group.href
+							)
 						)
 					);
 				}
 			});
+		}
+	}, {
+		key: 'renderComment',
+		value: function renderComment(item) {
+			return _react2.default.createElement(
+				'div',
+				{ className: 'rounded' },
+				_react2.default.createElement(
+					'span',
+					{ className: 'reason' },
+					item.reason
+				),
+				_react2.default.createElement(
+					'span',
+					{ className: 'time' },
+					item.start,
+					'-',
+					item.end
+				)
+			);
 		}
 	}, {
 		key: 'componentDidMount',
@@ -161,7 +219,7 @@ var AttendanceList = (function (_React$Component) {
 	}, {
 		key: 'setMemberInfo',
 		value: function setMemberInfo() {
-			var _this2 = this;
+			var _this3 = this;
 
 			_jquery2.default.ajax({
 				type: 'GET',
@@ -172,10 +230,10 @@ var AttendanceList = (function (_React$Component) {
 				success: function success(absents) {
 					absents.items.map(function (item) {
 						// TODO do it as async
-						item.member = _this2.getInfo(item.member.href);
-						item.stat = _this2.getInfo(item.stat.href);
+						item.member = _this3.getInfo(item.member.href);
+						item.stat = _this3.getInfo(item.stat.href);
 					});
-					_this2.setState({ absents: absents });
+					_this3.setState({ absents: absents });
 				}
 			});
 		}

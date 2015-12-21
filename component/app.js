@@ -13,6 +13,7 @@ export default class AttendanceList extends React.Component {
 		}
 		this.setMemberInfo = this.setMemberInfo.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
+		this.renderMemberList = this.renderMemberList.bind(this);
 	}
 	render() {
 		return (
@@ -23,7 +24,7 @@ export default class AttendanceList extends React.Component {
 				<div className="grid">
 					<p className="title">Paid leave off</p>
 					<hr className="fancy-line"></hr>
-					{this.renderMember(this.state.absents.items, 'paid')}
+					{this.renderMemberList(this.state.absents.items, 'paid')}
 					<div className="btn">
 						<a href="#">+ ADD INFORMATION</a>
 					</div>
@@ -31,7 +32,17 @@ export default class AttendanceList extends React.Component {
 				<div className="grid">
 					<p className="title">Late</p>
 					<hr className="fancy-line"></hr>
-					{this.renderMember(this.state.absents.items, 'late')}
+					{this.renderMemberList(this.state.absents.items, 'late')}
+					<div className="balloon">Half-Day off</div>
+					{this.renderMemberList(this.state.absents.items, 'half')}
+					<div className="btn">
+						<a href="#">+ ADD INFORMATION</a>
+					</div>
+				</div>
+				<div className="grid">
+					<p className="title">Business Event</p>
+					<hr className="fancy-line"></hr>
+					{this.renderMemberList(this.state.absents.items, 'business', true)}
 					<div className="btn">
 						<a href="#">+ ADD INFORMATION</a>
 					</div>
@@ -39,18 +50,31 @@ export default class AttendanceList extends React.Component {
 			</div>
 		);
 	}
-	renderMember(items, statId) {
+	renderMemberList(items, statId, isCommentRequired) {
 		return items.map(item => {
 			if(item.stat.id == statId) {
 				return (
-					<section className="item" key={item._id}>
-						<img className="thumbnail" src={item.member.icon} alt="thumbnail" />
-						<div className="name">{item.member.name}</div>
-						<p className="department">{item.member.group.href}</p>
-					</section>
+					<div>
+					    {isCommentRequired
+			             ? <div>{this.renderComment(item)}</div>
+			             : ""}
+						<section className="item" key={item._id}>
+							<img className="thumbnail" src={item.member.icon} alt="thumbnail" />
+							<div className="name">{item.member.name}</div>
+							<p className="department">{item.member.group.href}</p>
+						</section>
+					</div>
 				)
 			}
-		})
+		});
+	}
+	renderComment(item) {
+		return (
+			<div className="rounded">
+				<span className="reason">{item.reason}</span>
+				<span className="time">{item.start}-{item.end}</span>
+			</div>
+		);
 	}
 	componentDidMount() {
 		this.setMemberInfo();
