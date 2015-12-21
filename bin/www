@@ -3,9 +3,10 @@
 /**
  * Module dependencies.
  */
+require('babel-register')({presets: ["es2015", "react"]});
 
 var app = require('../app');
-var debug = require('debug')('tamtam:server');
+var debug = require('debug')('my-react-router:server');
 var http = require('http');
 
 /**
