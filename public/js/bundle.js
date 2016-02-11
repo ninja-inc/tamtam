@@ -196,26 +196,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _jquery = require('jquery');
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-var _underscore = require('underscore');
-
-var _underscore2 = _interopRequireDefault(_underscore);
-
-var _logo = require('./logo');
-
-var _logo2 = _interopRequireDefault(_logo);
-
-var _searchForm = require('./searchForm');
-
-var _searchForm2 = _interopRequireDefault(_searchForm);
-
-var _entryModal = require('./entryModal');
-
-var _entryModal2 = _interopRequireDefault(_entryModal);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -345,7 +325,7 @@ exports.default = AttendanceList;
 
 AttendanceList.defaultProps = {};
 
-},{"./entryModal":4,"./logo":5,"./searchForm":6,"jquery":26,"react":229,"react-dom":27,"underscore":230}],4:[function(require,module,exports){
+},{"react":229,"react-dom":27}],4:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();

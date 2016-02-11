@@ -1,12 +1,6 @@
 'use strict';
 import React from 'react'
 import ReactDOM from 'react-dom'
-import $ from 'jquery'
-import _ from 'underscore'
-
-import Logo from './logo'
-import SearchForm from './searchForm'
-import EntryModal from './entryModal'
 
 export default class AttendanceList extends React.Component {
 	constructor(props) {
