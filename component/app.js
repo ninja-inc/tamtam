@@ -6,80 +6,33 @@ import _ from 'underscore'
 
 import Logo from './logo'
 import SearchForm from './searchForm'
+import AttendanceList from './attendanceList'
 import EntryModal from './entryModal'
 
 export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			absents: {items:[]},
-			members: {items:[]}
+			absents: {items:[]}
 		}
 		this.setMemberInfo = this.setMemberInfo.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
-		this.renderMemberList = this.renderMemberList.bind(this);
 	}
 	render() {
+		let absents = this.state.absents
 		return (
 			<div>
 				<div className="wrapper">
 					<Logo />
 					<SearchForm />
 				</div>
+
 				<div className="clear"></div>
-				<div className="grid">
-					<p className="title">Paid leave off</p>
-					<hr className="fancy-line"></hr>
-					{this.renderMemberList(this.state.absents.items, 'paid')}
-					<div className="btn">
-						<a href="#entry-modal">+ ADD INFORMATION</a>
-					</div>
-				</div>
-				<div className="grid">
-					<p className="title">Late</p>
-					<hr className="fancy-line"></hr>
-					{this.renderMemberList(this.state.absents.items, 'late')}
-					<div className="balloon">Half-Day off</div>
-					{this.renderMemberList(this.state.absents.items, 'half')}
-					<div className="btn">
-						<a href="#entry-modal">+ ADD INFORMATION</a>
-					</div>
-				</div>
-				<div className="grid">
-					<p className="title">Business Event</p>
-					<hr className="fancy-line"></hr>
-					{this.renderMemberList(this.state.absents.items, 'business', true)}
-					<div className="btn">
-						<a href="#entry-modal">+ ADD INFORMATION</a>
-					</div>
-				</div>
+
+				{this.props.listElements.map(listElement =>
+					<AttendanceList listElement={listElement} absents={absents} />
+				)}
 				<EntryModal />
-			</div>
-		);
-	}
-	renderMemberList(items, statId, isCommentRequired) {
-		return items.map(item => {
-			if(item.stat.id == statId) {
-				return (
-					<div>
-					    {isCommentRequired
-			             ? <div>{this.renderComment(item)}</div>
-			             : ""}
-						<section className="item" key={item._id}>
-							<img className="thumbnail" src={item.member.icon} alt="thumbnail" />
-							<div className="name">{item.member.name}</div>
-							<p className="department">{item.member.group.href}</p>
-						</section>
-					</div>
-				)
-			}
-		});
-	}
-	renderComment(item) {
-		return (
-			<div className="rounded">
-				<span className="reason">{item.reason}</span>
-				<span className="time">{item.start}-{item.end}</span>
 			</div>
 		);
 	}
@@ -117,4 +70,31 @@ export default class App extends React.Component {
 		}).responseJSON;
 	}
 }
-App.defaultProps = {}
+App.defaultProps = {
+	listElements: [
+		{
+			id: "paid",
+			title: "Paid leave off",
+			isCommentRequired: false,
+			additionalElements: null
+		},
+		{
+			id: "late",
+			title: "Late",
+			isCommentRequired: false,
+			additionalElements: [
+				{
+					id: "half",
+					title: "Half-Day off",
+					isCommentRequired: false
+				}
+			]
+		},
+		{
+			id: "business",
+			title: "Business Event",
+			isCommentRequired: true,
+			additionalElements: null
+		}
+	]
+}
