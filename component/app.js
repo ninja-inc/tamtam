@@ -19,8 +19,16 @@ export default class AttendanceList extends React.Component {
 		return (
 			<div>
 				<div className="wrapper">
-					<p> Attendance mamnagement system. </p>	
+					<div className="logo">
+							<img src="images/logo.png" alt="Attendance mamnagement system" />
+					</div>
+					<div id="search-area">
+				    	<input type="text" name="condition" id="search-box" placeholder="Please Input Team, Name, Date" />
+					    <span className="filter-conditon">2015/12/21</span>
+					    <span className="filter-conditon">Platform Group</span>
+					</div>
 				</div>
+				<div className="clear"></div>
 				<div className="grid">
 					<p className="title">Paid leave off</p>
 					<hr className="fancy-line"></hr>

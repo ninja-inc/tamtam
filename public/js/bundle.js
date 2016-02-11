@@ -84,11 +84,27 @@ var AttendanceList = (function (_React$Component) {
 					'div',
 					{ className: 'wrapper' },
 					_react2.default.createElement(
-						'p',
-						null,
-						' Attendance mamnagement system. '
+						'div',
+						{ className: 'logo' },
+						_react2.default.createElement('img', { src: 'images/logo.png', alt: 'Attendance mamnagement system' })
+					),
+					_react2.default.createElement(
+						'div',
+						{ id: 'search-area' },
+						_react2.default.createElement('input', { type: 'text', name: 'condition', id: 'search-box', placeholder: 'Please Input Team, Name, Date' }),
+						_react2.default.createElement(
+							'span',
+							{ className: 'filter-conditon' },
+							'2015/12/21'
+						),
+						_react2.default.createElement(
+							'span',
+							{ className: 'filter-conditon' },
+							'Platform Group'
+						)
 					)
 				),
+				_react2.default.createElement('div', { className: 'clear' }),
 				_react2.default.createElement(
 					'div',
 					{ className: 'grid' },
