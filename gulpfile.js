@@ -36,5 +36,7 @@ gulp.task('watch', function() {
 // this module is like a main method of Java, so it is needed.
 // write TODO task names.
 gulp.task('default', function() {
-  return runSequence('cleanPublic', 'watch', 'browserify');
+  /*return runSequence('cleanPublic', 'watch', 'browserify');*/
+  return runSequence('cleanPublic', 'browserify');
+
 })
