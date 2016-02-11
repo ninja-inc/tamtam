@@ -120,7 +120,7 @@ var AttendanceList = (function (_React$Component) {
 						{ className: 'btn' },
 						_react2.default.createElement(
 							'a',
-							{ href: '#' },
+							{ href: '#entry-modal' },
 							'+ ADD INFORMATION'
 						)
 					)
@@ -146,7 +146,7 @@ var AttendanceList = (function (_React$Component) {
 						{ className: 'btn' },
 						_react2.default.createElement(
 							'a',
-							{ href: '#' },
+							{ href: '#entry-modal' },
 							'+ ADD INFORMATION'
 						)
 					)
@@ -166,8 +166,118 @@ var AttendanceList = (function (_React$Component) {
 						{ className: 'btn' },
 						_react2.default.createElement(
 							'a',
-							{ href: '#' },
+							{ href: '#entry-modal' },
 							'+ ADD INFORMATION'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'section',
+					{ id: 'entry-modal', className: 'modal' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'modal-inner' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'circle-wrapper' },
+							_react2.default.createElement('div', { className: 'circle' })
+						),
+						_react2.default.createElement(
+							'h2',
+							null,
+							'Attendance Information'
+						),
+						_react2.default.createElement(
+							'form',
+							{ className: 'entry-form', method: 'get', action: '#' },
+							_react2.default.createElement('input', { type: 'text', name: 'name', placeholder: 'please input target name' }),
+							_react2.default.createElement(
+								'p',
+								null,
+								'please choose status'
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'stat-icon-list' },
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select1', value: '1', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select1' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select2', value: '2', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select2' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select3', value: '3', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select3' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select4', value: '4', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select4' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select5', value: '5', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select5' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select6', value: '6', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select6' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select7', value: '7', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select7' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								),
+								_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select8', value: '8', checked: '' }),
+								_react2.default.createElement(
+									'label',
+									{ 'for': 'select8' },
+									_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
+								)
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'date' },
+								'DATE',
+								_react2.default.createElement('input', { type: 'date', name: 'date', autocomplete: 'on', required: true })
+							),
+							_react2.default.createElement(
+								'div',
+								{ className: 'time' },
+								'TIME',
+								_react2.default.createElement('input', { type: 'time', name: 'start', autocomplete: 'on', value: '09:00', required: true }),
+								_react2.default.createElement(
+									'span',
+									{ className: 'seperator' },
+									'-'
+								),
+								_react2.default.createElement('input', { type: 'time', name: 'end', autocomplete: 'on', required: true })
+							),
+							'REASON',
+							_react2.default.createElement('textarea', { name: 'reason', placeholder: 'please input reason' }),
+							_react2.default.createElement('input', { type: 'submit', value: 'SEND' })
+						)
+					),
+					_react2.default.createElement(
+						'a',
+						{ href: '#', className: 'close' },
+						_react2.default.createElement(
+							'span',
+							null,
+							'close'
 						)
 					)
 				)
