@@ -223,7 +223,7 @@ var AttendanceList = (function (_React$Component) {
 
 			_jquery2.default.ajax({
 				type: 'GET',
-				url: 'http://tamtam-api.herokuapp.com/absents',
+				url: 'http://amam-api.herokuapp.com/absents',
 				xhrFields: {
 					withCredentials: true
 				},
@@ -242,7 +242,7 @@ var AttendanceList = (function (_React$Component) {
 		value: function getInfo(endpoint) {
 			return _jquery2.default.ajax({
 				type: 'GET',
-				url: 'http://tamtam-api.herokuapp.com' + endpoint,
+				url: 'http://amam-api.herokuapp.com' + endpoint,
 				xhrFields: {
 					withCredentials: true
 				},

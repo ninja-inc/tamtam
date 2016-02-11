@@ -82,7 +82,7 @@ export default class AttendanceList extends React.Component {
 	setMemberInfo() {
 		$.ajax({
 			type: 'GET',
-			url: 'http://tamtam-api.herokuapp.com/absents',
+			url: 'http://amam-api.herokuapp.com/absents',
 			xhrFields: {
     			withCredentials: true
    			},
@@ -99,7 +99,7 @@ export default class AttendanceList extends React.Component {
 	getInfo(endpoint) {
 		return $.ajax({
 			type: 'GET',
-			url: 'http://tamtam-api.herokuapp.com' + endpoint,
+			url: 'http://amam-api.herokuapp.com' + endpoint,
 			xhrFields: {
     			withCredentials: true
    			},
