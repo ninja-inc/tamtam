@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
+import 'whatwg-fetch'
 import _ from 'underscore'
 
 import Logo from './logo'
@@ -40,6 +41,23 @@ export default class App extends React.Component {
 		this.setMemberInfo();
 	}
 	setMemberInfo() {
+		fetch("http://amam-api.herokuapp.com/absents",{
+ 	 		mode: 'cors',
+ 	 		credentials: 'include'
+		}).then(res => {
+			console.log(JSON.stringify(res));
+			//console.log(JSON.stringify(res.json()));
+			return res.json();
+		}).then(resJson => {
+			console.log(JSON.stringify(resJson));
+    		resJson.items.map(item => {
+				// TODO do it as async
+				item.member = this.getInfo(item.member.href);
+				item.stat = this.getInfo(item.stat.href);
+			});
+			this.setState({absents:resJson});
+		})
+		/*
 		$.ajax({
 			type: 'GET',
 			url: 'http://amam-api.herokuapp.com/absents',
@@ -55,9 +73,17 @@ export default class App extends React.Component {
 				this.setState({absents:absents});
 			}
 		});
+		*/
 	}
 	getInfo(endpoint) {
-		return $.ajax({
+		res = fetch("http://amam-api.herokuapp.com/absents" + endpoint)
+		.then(res => {
+			console.log(JSON.stringify(res.json()));
+			//console.log(JSON.stringify(res));
+    		return res
+		})
+		/*
+		response = $.ajax({
 			type: 'GET',
 			url: 'http://amam-api.herokuapp.com' + endpoint,
 			xhrFields: {
@@ -68,6 +94,8 @@ export default class App extends React.Component {
 				return res;
 			}
 		}).responseJSON;
+		*/
+		return res;
 	}
 }
 App.defaultProps = {
