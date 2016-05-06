@@ -22,14 +22,14 @@ export default class AttendanceList extends React.Component {
 		);
 	}
 	renderMemberList(items, statId, isCommentRequired) {
-		return items.map(item => {
+		return items.map((item, index) => {
 			if(item.stat != null && item.stat.id == statId) {
 				return (
-					<div>
+					<div key={item.id + index}>
 					    {isCommentRequired
 			             ? <div>{this.renderComment(item)}</div>
 			             : ""}
-						<section className="item" key={item._id}>
+						<section className="item">
 							<img className="thumbnail" src={item.member.icon} alt="thumbnail" />
 							<div className="name">{item.member.name}</div>
 						</section>
@@ -40,8 +40,8 @@ export default class AttendanceList extends React.Component {
 	}
 	renderAdditionalElement(additionalElements) {
 		if (additionalElements != null) {
-			return additionalElements.map(additionalElement => (
-				<div>
+			return additionalElements.map((additionalElement, index) => (
+				<div key={'additionalElement' + index}>
 					<div className="balloon">{additionalElement.title}</div>
 					{this.renderMemberList(this.props.absents.items, additionalElement.id, additionalElement.isCommentRequired)}
 				</div>

@@ -25,7 +25,6 @@ export default class App extends React.Component {
 		}
 		this.setMemberInfo = this.setMemberInfo.bind(this);
 		this.setDetails = this.setDetails.bind(this);
-		this.setStateSync = this.setStateSync.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
 	}
 	render() {
@@ -39,8 +38,8 @@ export default class App extends React.Component {
 
 				<div className="clear"></div>
 
-				{this.props.listElements.map(listElement =>
-					<AttendanceList listElement={listElement} absents={absents} />
+				{this.props.listElements.map((listElement, index) =>
+					<AttendanceList listElement={listElement} absents={absents} key={'attendanceList' + index}/>
 				)}
 				<EntryModal />
 			</div>
@@ -53,7 +52,6 @@ export default class App extends React.Component {
 		fetch("http://chaus.herokuapp.com/apis/amam/absents",{
  	 		mode: 'cors'
 		}).then(res => {
-			console.log(JSON.stringify(res));
 			return res.json();
 		}).then(resJson => {
 			console.log(JSON.stringify(resJson));
@@ -71,25 +69,22 @@ export default class App extends React.Component {
  	 		mode: 'cors',
  	 		cache: 'force-cache'
 		}).then(res => {
-			console.log(JSON.stringify(res));
 			return res.json();
-		}).then(resJson => {			
-			this.setStateSync(resJson, stateType, index);
+		}).then(resJson => {
+			console.log(JSON.stringify(resJson));			
+			let newAbsents = this.state.absents;
+
+			switch (stateType) {
+				case 'member':
+					newAbsents.items[index].member = resJson;
+					break;
+				case 'stat':
+					newAbsents.items[index].stat = resJson;
+					break;
+			}
+
+			this.setState({absents: newAbsents});
 		})
-	}
-	setStateSync(resJson, stateType, index) {
-		let newAbsents = this.state.absents;
-
-		switch (stateType) {
-			case 'member':
-				newAbsents.items[index].member = resJson;
-				break;
-			case 'stat':
-				newAbsents.items[index].stat = resJson;
-				break;
-		}
-
-		this.setState({absents: newAbsents});
 	}
 }
 App.defaultProps = {
@@ -106,8 +101,13 @@ App.defaultProps = {
 			isCommentRequired: false,
 			additionalElements: [
 				{
-					id: "half",
-					title: "Half-Day off",
+					id: "morning",
+					title: "Morning-Day off",
+					isCommentRequired: false
+				},
+				{
+					id: "afternoon",
+					title: "Afternoon-Day off",
 					isCommentRequired: false
 				}
 			]

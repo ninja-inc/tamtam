@@ -92,7 +92,6 @@ var App = (function (_React$Component) {
 		};
 		_this.setMemberInfo = _this.setMemberInfo.bind(_this);
 		_this.setDetails = _this.setDetails.bind(_this);
-		_this.setStateSync = _this.setStateSync.bind(_this);
 		_this.componentDidMount = _this.componentDidMount.bind(_this);
 		return _this;
 	}
@@ -111,8 +110,8 @@ var App = (function (_React$Component) {
 					_react2.default.createElement(_searchForm2.default, null)
 				),
 				_react2.default.createElement('div', { className: 'clear' }),
-				this.props.listElements.map(function (listElement) {
-					return _react2.default.createElement(_attendanceList2.default, { listElement: listElement, absents: absents });
+				this.props.listElements.map(function (listElement, index) {
+					return _react2.default.createElement(_attendanceList2.default, { listElement: listElement, absents: absents, key: 'attendanceList' + index });
 				}),
 				_react2.default.createElement(_entryModal2.default, null)
 			);
@@ -130,7 +129,6 @@ var App = (function (_React$Component) {
 			fetch("http://chaus.herokuapp.com/apis/amam/absents", {
 				mode: 'cors'
 			}).then(function (res) {
-				console.log(JSON.stringify(res));
 				return res.json();
 			}).then(function (resJson) {
 				console.log(JSON.stringify(resJson));
@@ -151,27 +149,22 @@ var App = (function (_React$Component) {
 				mode: 'cors',
 				cache: 'force-cache'
 			}).then(function (res) {
-				console.log(JSON.stringify(res));
 				return res.json();
 			}).then(function (resJson) {
-				_this3.setStateSync(resJson, stateType, index);
+				console.log(JSON.stringify(resJson));
+				var newAbsents = _this3.state.absents;
+
+				switch (stateType) {
+					case 'member':
+						newAbsents.items[index].member = resJson;
+						break;
+					case 'stat':
+						newAbsents.items[index].stat = resJson;
+						break;
+				}
+
+				_this3.setState({ absents: newAbsents });
 			});
-		}
-	}, {
-		key: 'setStateSync',
-		value: function setStateSync(resJson, stateType, index) {
-			var newAbsents = this.state.absents;
-
-			switch (stateType) {
-				case 'member':
-					newAbsents.items[index].member = resJson;
-					break;
-				case 'stat':
-					newAbsents.items[index].stat = resJson;
-					break;
-			}
-
-			this.setState({ absents: newAbsents });
 		}
 	}]);
 
@@ -191,8 +184,12 @@ App.defaultProps = {
 		title: "Late",
 		isCommentRequired: false,
 		additionalElements: [{
-			id: "half",
-			title: "Half-Day off",
+			id: "morning",
+			title: "Morning-Day off",
+			isCommentRequired: false
+		}, {
+			id: "afternoon",
+			title: "Afternoon-Day off",
 			isCommentRequired: false
 		}]
 	}, {
@@ -271,11 +268,11 @@ var AttendanceList = (function (_React$Component) {
 		value: function renderMemberList(items, statId, isCommentRequired) {
 			var _this2 = this;
 
-			return items.map(function (item) {
+			return items.map(function (item, index) {
 				if (item.stat != null && item.stat.id == statId) {
 					return _react2.default.createElement(
 						'div',
-						null,
+						{ key: item.id + index },
 						isCommentRequired ? _react2.default.createElement(
 							'div',
 							null,
@@ -283,7 +280,7 @@ var AttendanceList = (function (_React$Component) {
 						) : "",
 						_react2.default.createElement(
 							'section',
-							{ className: 'item', key: item._id },
+							{ className: 'item' },
 							_react2.default.createElement('img', { className: 'thumbnail', src: item.member.icon, alt: 'thumbnail' }),
 							_react2.default.createElement(
 								'div',
@@ -301,10 +298,10 @@ var AttendanceList = (function (_React$Component) {
 			var _this3 = this;
 
 			if (additionalElements != null) {
-				return additionalElements.map(function (additionalElement) {
+				return additionalElements.map(function (additionalElement, index) {
 					return _react2.default.createElement(
 						'div',
-						null,
+						{ key: 'additionalElement' + index },
 						_react2.default.createElement(
 							'div',
 							{ className: 'balloon' },
@@ -409,52 +406,52 @@ var EntryModal = (function (_React$Component) {
 						_react2.default.createElement(
 							'div',
 							{ className: 'stat-icon-list' },
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select1', value: '1', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select1', defaultValue: '1', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select1' },
+								{ htmlFor: 'select1' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select2', value: '2', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select2', defaultValue: '2', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select2' },
+								{ htmlFor: 'select2' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select3', value: '3', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select3', defaultValue: '3', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select3' },
+								{ htmlFor: 'select3' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select4', value: '4', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select4', defaultValue: '4', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select4' },
+								{ htmlFor: 'select4' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select5', value: '5', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select5', defaultValue: '5', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select5' },
+								{ htmlFor: 'select5' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select6', value: '6', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select6', defaultValue: '6', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select6' },
+								{ htmlFor: 'select6' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select7', value: '7', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select7', defaultValue: '7', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select7' },
+								{ htmlFor: 'select7' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							),
-							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select8', value: '8', checked: '' }),
+							_react2.default.createElement('input', { type: 'radio', name: 'icon', id: 'select8', defaultValue: '8', checked: '' }),
 							_react2.default.createElement(
 								'label',
-								{ 'for': 'select8' },
+								{ htmlFor: 'select8' },
 								_react2.default.createElement('img', { className: 'stat-icon', src: 'images/icons/icon-train-delay.png', alt: 'train-delay' })
 							)
 						),
@@ -462,23 +459,23 @@ var EntryModal = (function (_React$Component) {
 							'div',
 							{ className: 'date' },
 							'DATE',
-							_react2.default.createElement('input', { type: 'date', name: 'date', autocomplete: 'on', required: true })
+							_react2.default.createElement('input', { type: 'date', name: 'date', autoComplete: 'on', required: true })
 						),
 						_react2.default.createElement(
 							'div',
 							{ className: 'time' },
 							'TIME',
-							_react2.default.createElement('input', { type: 'time', name: 'start', autocomplete: 'on', value: '09:00', required: true }),
+							_react2.default.createElement('input', { type: 'time', name: 'start', autoComplete: 'on', defaultValue: '09:00', required: true }),
 							_react2.default.createElement(
 								'span',
 								{ className: 'seperator' },
 								'-'
 							),
-							_react2.default.createElement('input', { type: 'time', name: 'end', autocomplete: 'on', required: true })
+							_react2.default.createElement('input', { type: 'time', name: 'end', autoComplete: 'on', required: true })
 						),
 						'REASON',
 						_react2.default.createElement('textarea', { name: 'reason', placeholder: 'please input reason' }),
-						_react2.default.createElement('input', { type: 'submit', value: 'SEND' })
+						_react2.default.createElement('input', { type: 'submit', defaultValue: 'SEND' })
 					)
 				),
 				_react2.default.createElement(
