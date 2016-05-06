@@ -23,7 +23,7 @@ export default class AttendanceList extends React.Component {
 	}
 	renderMemberList(items, statId, isCommentRequired) {
 		return items.map(item => {
-			if(item.stat.id == statId) {
+			if(item.stat != null && item.stat.id == statId) {
 				return (
 					<div>
 					    {isCommentRequired
@@ -32,7 +32,6 @@ export default class AttendanceList extends React.Component {
 						<section className="item" key={item._id}>
 							<img className="thumbnail" src={item.member.icon} alt="thumbnail" />
 							<div className="name">{item.member.name}</div>
-							<p className="department">{item.member.group.href}</p>
 						</section>
 					</div>
 				)
