@@ -16,7 +16,7 @@ export default class AttendanceList extends React.Component {
 				{this.renderMemberList(this.props.absents.items, this.props.listElement.id, this.props.listElement.isCommentRequired)}
 				{this.renderAdditionalElement(this.props.listElement.additionalElements)}
 				<div className="btn">
-					<a href="#entry-modal">+ ADD INFORMATION</a>
+					<a href="#">+ ADD INFORMATION</a>
 				</div>
 			</div>
 		);

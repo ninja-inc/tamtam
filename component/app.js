@@ -1,7 +1,6 @@
 'use strict';
 import React from 'react'
 import ReactDOM from 'react-dom'
-import $ from 'jquery'
 import 'whatwg-fetch'
 import _ from 'underscore'
 
@@ -37,10 +36,11 @@ export default class App extends React.Component {
 				</div>
 
 				<div className="clear"></div>
-
-				{this.props.listElements.map((listElement, index) =>
-					<AttendanceList listElement={listElement} absents={absents} key={'attendanceList' + index}/>
-				)}
+				<div className="gridmaster">
+					{this.props.listElements.map((listElement, index) =>
+						<AttendanceList listElement={listElement} absents={absents} key={'attendanceList' + index}/>
+					)}
+				</div>
 				<EntryModal />
 			</div>
 		);

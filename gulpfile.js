@@ -14,7 +14,7 @@ var babelify = require('babelify')
 // delete module.
 // http://whiskers.nukos.kitchen/2014/12/08/gulp-del.html
 gulp.task('cleanPublic', function() {
-  return gulp.src('public/js/*js')
+  return gulp.src('public/js/bundle.js')
   				.pipe(vinylPaths(del))
 });
 
