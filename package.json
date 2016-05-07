@@ -17,11 +17,9 @@
     "handlebars": "^2.0.0",
 
     "underscore": "1.8.3",
-    "jquery": "2.1.4",
-    "react": "^0.14",
-    "react-dom": "^0.14",
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2",
     "react-router": "1.0.0-rc3",
-    "react-bootstrap": "^0.27",
     "history": "^1.12",
 
     "babel-register": "^6.3.13",
@@ -35,7 +33,7 @@
     "babel-preset-react": "6.1.18"
   },
   "devDependencies": {
-    "browserify": "^12.0.1",
+    "browserify": "^13.0.1",
     "del": "^1.1.0",
     "gulp": "^3.8.10",
     "gulp-react": "^2.0.0",
@@ -44,6 +42,8 @@
     "react-tools": "^0.12.1",
     "run-sequence": "^1.0.2",
     "vinyl-paths": "^1.0.0",
-    "vinyl-source-stream": "^1.0.0"
+    "vinyl-source-stream": "^1.0.0",
+
+    "jquery": "^2.2"
   }
 }
